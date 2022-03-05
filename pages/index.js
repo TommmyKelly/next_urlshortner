@@ -3,6 +3,25 @@ import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { useState } from "react";
 import absoluteUrl from "next-absolute-url";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const copyToClipboard = (newUrl) => {
+  navigator.clipboard.writeText(newUrl);
+
+  toast.success("Copied to clipboard");
+};
+
+const Output = (newUrl) => {
+  return (
+    <div>
+      <div className='new_url'>{newUrl.newUrl}</div>
+      <button on onClick={() => copyToClipboard(newUrl.newUrl)}>
+        Copy to clipboard
+      </button>
+    </div>
+  );
+};
 
 const Home = (langkey) => {
   const [url, setUrl] = useState("");
@@ -14,6 +33,7 @@ const Home = (langkey) => {
     const { data: short_url } = await axios.post("/api/url", { long_url: url });
     setNewUrl(`${langkey.langkey}/api/${short_url.short_url}`);
   };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -23,6 +43,7 @@ const Home = (langkey) => {
       </Head>
 
       <main className={styles.main}>
+        <ToastContainer />
         <h1 className={styles.title}>Url Shortener</h1>
 
         <form onSubmit={checkUrl}>
@@ -38,17 +59,13 @@ const Home = (langkey) => {
           />
 
           <button type='submit'>Shorten</button>
-          <div className='new_url'>{newUrl}</div>
+          {newUrl && <Output newUrl={newUrl} />}
         </form>
       </main>
     </div>
   );
 };
 
-// Home.getInitialProps = async ({ req }) => {
-//   const subdomain = req.headers.host.split(".")[0];
-//   return { langkey: subdomain };
-// };
 Home.getInitialProps = async ({ req }) => {
   const { origin } = absoluteUrl(req);
   const apiURL = `${origin}`;
