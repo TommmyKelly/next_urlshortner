@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var url = new Schema({
+const url = new Schema({
   short_url: {
     type: String,
     required: true,
@@ -14,6 +14,6 @@ var url = new Schema({
 
 mongoose.models = {};
 
-var Url = mongoose.model("Url", url);
+const Url = mongoose.model("Url", url);
 
 export default Url;
