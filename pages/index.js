@@ -38,8 +38,8 @@ const Home = (langkey) => {
           />
 
           <button type='submit'>Shorten</button>
+          <div className='new_url'>{newUrl}</div>
         </form>
-        <div>{newUrl}</div>
       </main>
     </div>
   );
