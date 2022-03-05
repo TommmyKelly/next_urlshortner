@@ -12,7 +12,7 @@ const Home = (langkey) => {
     e.preventDefault();
 
     const { data: short_url } = await axios.post("/api/url", { long_url: url });
-    setNewUrl(`${langkey.langkey}api/${short_url.short_url}`);
+    setNewUrl(`${langkey.langkey}/api/${short_url.short_url}`);
   };
   return (
     <div className={styles.container}>
@@ -28,10 +28,13 @@ const Home = (langkey) => {
         <form onSubmit={checkUrl}>
           <input
             type='text'
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={(e) => {
+              setUrl(e.target.value);
+              setNewUrl("");
+            }}
             required
             placeholder='Enter url to shorten'
-            pattern='https://.*'
+            pattern='https?://.*'
           />
 
           <button type='submit'>Shorten</button>
@@ -48,7 +51,7 @@ const Home = (langkey) => {
 // };
 Home.getInitialProps = async ({ req }) => {
   const { origin } = absoluteUrl(req);
-  const apiURL = `${origin}/`;
+  const apiURL = `${origin}`;
   return { langkey: apiURL };
 };
 
