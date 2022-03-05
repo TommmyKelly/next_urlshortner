@@ -14,3 +14,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+button[type="submit"] {
+  padding: 5px 15px;
+  background: rgb(64, 178, 223);
+  border: 0 none;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin-left: 20px;
+}

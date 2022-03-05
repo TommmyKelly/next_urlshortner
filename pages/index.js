@@ -1,17 +1,16 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { useState } from "react";
 import absoluteUrl from "next-absolute-url";
 
 const Home = (langkey) => {
-  console.log(langkey);
   const [url, setUrl] = useState("");
   const [newUrl, setNewUrl] = useState("");
+
   const checkUrl = async (e) => {
     e.preventDefault();
-    console.log(url);
+
     const { data: short_url } = await axios.post("/api/url", { long_url: url });
     setNewUrl(`${langkey.langkey}api/${short_url.short_url}`);
   };
@@ -27,7 +26,13 @@ const Home = (langkey) => {
         <h1 className={styles.title}>Url Shortener</h1>
 
         <form onSubmit={checkUrl}>
-          <input type='text' onChange={(e) => setUrl(e.target.value)} />
+          <input
+            type='text'
+            onChange={(e) => setUrl(e.target.value)}
+            required
+            placeholder='Enter url to shorten'
+          />
+
           <button type='submit'>Shorten</button>
         </form>
         <div>{newUrl}</div>
