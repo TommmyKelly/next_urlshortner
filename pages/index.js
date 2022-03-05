@@ -31,6 +31,7 @@ const Home = (langkey) => {
             onChange={(e) => setUrl(e.target.value)}
             required
             placeholder='Enter url to shorten'
+            pattern='https://.*'
           />
 
           <button type='submit'>Shorten</button>
