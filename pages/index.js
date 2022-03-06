@@ -14,7 +14,7 @@ const copyToClipboard = (newUrl) => {
 
 const Output = (newUrl) => {
   return (
-    <div>
+    <div className='output'>
       <div className='new_url'>{newUrl.newUrl}</div>
       <button on onClick={() => copyToClipboard(newUrl.newUrl)}>
         Copy to clipboard
@@ -55,10 +55,17 @@ const Home = (langkey) => {
             }}
             required
             placeholder='Enter url to shorten'
-            pattern='https?://.*'
+            // pattern='https?://.*'
+            pattern='[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?'
+            // pattern='http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in|.co.uk|.dev|.ie|.ca|.me|.ai|.co|io)(\/[^\s]*)?'
+            onInvalid={() => {
+              toast.error(
+                "Please enter a valid url.\nUrl must start with http:// or https://"
+              );
+            }}
           />
 
-          <button type='submit'>Shorten</button>
+          <button type='submit'>Shorten Url</button>
           {newUrl && <Output newUrl={newUrl} />}
         </form>
       </main>
