@@ -26,7 +26,7 @@ const handler = async (req, res) => {
             short_url: await create_url(),
             long_url,
           });
-          // Create new user
+          // Create new url
           const url_created = await url.save();
           return res.status(200).json({ short_url: url_created.short_url });
         }
